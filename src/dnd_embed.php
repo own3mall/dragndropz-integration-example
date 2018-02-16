@@ -39,7 +39,9 @@
 						height: "600",
 						backgroundColor: "black",
 						backgroundImage: "none",
-						theme: "dark"
+						theme: "dark",
+						embedKey: "2BW3CkgyOY6aj9O", // PRO USER Feature --- YOU SET THE LIMITS ON HOW MANY FILES USERS CAN UPLOAD... SINCE I'VE INCLUDED MY EMBED KEY HERE IN THIS SOURCE CODE, IT'S SET TO 1 TO ILLUSTRATE IT WORKS
+						galleryId: 27
 					});
 					
 					$("div.dnd4").initFileDragNDropz({
@@ -47,7 +49,8 @@
 						height: "600",
 						backgroundColor: "#0100b0",
 						backgroundImage: "none",
-						theme: "dark"
+						theme: "dark",
+						maxFiles: 1
 					});
 					
 					$("div.dnd5").initFileDragNDropz({
@@ -56,7 +59,8 @@
 						backgroundColor: "green",
 						backgroundImage: "none",
 						theme: "dark",
-						maxFiles: 1
+						embedKey: "hKW08lVjULh1Ga7", // PRO USER Feature --- YOU SET THE LIMITS ON HOW MANY FILES USERS CAN UPLOAD... SINCE I'VE INCLUDED MY EMBED KEY HERE IN THIS SOURCE CODE, IT'S SET TO 1 TO ILLUSTRATE IT WORKS
+						folderId: 7
 					});
 					
 					$(".getValueOfHidden").click(function(e){
