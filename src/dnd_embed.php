@@ -1,13 +1,32 @@
 <?php
+	function prettyPrintArray($a) {
+		echo "<pre>";
+		echo print_r($a, true);
+		echo "</pre>";
+	}
+
 	if(isset($_POST["goPost"])){
-		$uploadedImages = $_POST["dragNDropzUploadsJSON"];
-		$uploadedFiles = $_POST["dragNDropzFileUploadsJSON"];
-		$jsonObject = json_decode($uploadedImages, true);
-		$jsonObjectFiles = json_decode($uploadedFiles, true);
-		echo "<p>Images:</p>";
-		print_r($jsonObject);
-		echo "<p>Files:</p>";
-		print_r($jsonObjectFiles);
+		$uploadedImages = $_POST["dragNDropzUploadsJSON"]; // This is an array of input values since there could be many instances on one form
+		$uploadedFiles = $_POST["dragNDropzFileUploadsJSON"]; // This is an array of input values since there could be many instances on one form
+		
+		// Loop through image inputs
+		$count = 0;
+		foreach($uploadedImages as $instanceImages){
+			$jsonObject = json_decode($instanceImages, true);
+			echo "<p>Images for Input " . ($count + 1) . ":</p>";
+			prettyPrintArray($jsonObject);
+			$count++;
+		}
+		
+		// Loop through file inputs
+		$count = 0;
+		foreach($uploadedFiles as $instanceFiles){
+			$jsonObjectFiles = json_decode($instanceFiles, true);
+			echo "<p>Files for Input " . ($count + 1) . ":</p>";
+			prettyPrintArray($jsonObjectFiles);
+			$count++;
+		}
+		
 	}else{
 ?>
 		<!DOCTYPE HTML>
@@ -68,13 +87,21 @@
 						var hiddenFilesInputVal="";
 						e.preventDefault();
 						if($(".dragNDropzUploadsJSON").length){
-							var hiddenInput = $(".dragNDropzUploadsJSON").last();
-							hiddenInputVal=hiddenInput.val();
+							var hiddenInput = $(".dragNDropzUploadsJSON");
+							if(hiddenInput.length){
+								hiddenInput.each(function(e){
+									hiddenInputVal += $(this).val();
+								});
+							}
 						}
 						
 						if($(".dragNDropzFileUploadsJSON").length){
-							var hiddenInput = $(".dragNDropzFileUploadsJSON").last();
-							hiddenFilesInputVal=hiddenInput.val();
+							var hiddenInput = $(".dragNDropzFileUploadsJSON");
+							if(hiddenInput.length){
+								hiddenInput.each(function(e){
+									hiddenFilesInputVal += $(this).val();
+								});
+							}
 						}
 						
 						if(hiddenFilesInputVal != "" || hiddenInputVal != ""){
@@ -92,7 +119,7 @@
 				<div class="dnd3"></div>
 				<div class="dnd4"></div>
 				<div class="dnd5"></div>
-				<button class="getValueOfHidden">Show Uploaded Files</button>
+				<button class="getValueOfHidden">Show Uploaded Files and Images</button>
 				<input type="submit" value="GO" name="goPost">
 			</form>
 		</body>
